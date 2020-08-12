@@ -13,8 +13,9 @@ public class LoginCli {
     public void execute() {
         String username = promptForField("Username");
         String password = promptForField("Password");
+        String twoFactorCode = promptForField("Two-Factor Code");
 
-        String token = loginService.login(username, password);
+        String token = loginService.login(username, password, twoFactorCode);
         if (token == null) {
             System.out.println("Unauthorized");
         } else {
