@@ -3,7 +3,7 @@ import java.net.Socket;
 
 public class LoginTcpHandler implements Runnable {
 
-    private final LoginService loginService;
+    private final LoginServiceWith2Factor loginService;
 
     private final Socket socket;
 
@@ -14,7 +14,7 @@ public class LoginTcpHandler implements Runnable {
     private final OutputStream outputStream;
     private final PrintWriter printWriter;
 
-    public LoginTcpHandler(Socket socket, LoginService loginService) {
+    public LoginTcpHandler(Socket socket, LoginServiceWith2Factor loginService) {
         this.loginService = loginService;
 
         this.socket = socket;
@@ -34,14 +34,14 @@ public class LoginTcpHandler implements Runnable {
     @Override
     public void run() {
         printWriter.println("Enter username and password in this format:");
-        printWriter.println("<username>|<password>");
+        printWriter.println("<username>|<password>|<two-factor code>");
 
         String input = getInput();
         if (input.isEmpty()) {
             printWriter.println("Unauthorized");
         } else {
-            String[] usernamePassword = input.split("\\|");
-            String token = loginService.login(usernamePassword[0], usernamePassword[1]);
+            String[] usernamePasswordCode = input.split("\\|");
+            String token = loginService.login(usernamePasswordCode[0], usernamePasswordCode[1], usernamePasswordCode[2]);
             if (token == null) {
                 printWriter.println("Unauthorized");
             } else {

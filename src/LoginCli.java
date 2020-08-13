@@ -3,18 +3,19 @@ import java.util.Scanner;
 
 public class LoginCli {
 
-    private final LoginService loginService;
+    private final LoginServiceWith2Factor loginService;
     private final Scanner inputScanner = new Scanner(System.in);
 
-    public LoginCli(LoginService loginService) {
+    public LoginCli(LoginServiceWith2Factor loginService) {
         this.loginService = loginService;
     }
 
     public void execute() {
         String username = promptForField("Username");
         String password = promptForField("Password");
+        String twoFactorCode = promptForField("Two-Factor Code");
 
-        String token = loginService.login(username, password);
+        String token = loginService.login(username, password, twoFactorCode);
         if (token == null) {
             System.out.println("Unauthorized");
         } else {

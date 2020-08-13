@@ -4,9 +4,9 @@ import java.net.Socket;
 
 public class LoginTcp {
 
-    private final LoginService loginService;
+    private final LoginServiceWith2Factor loginService;
 
-    public LoginTcp(LoginService loginService) {
+    public LoginTcp(LoginServiceWith2Factor loginService) {
         this.loginService = loginService;
     }
 
