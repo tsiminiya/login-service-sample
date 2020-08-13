@@ -10,12 +10,12 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public String login(String username, String password) {
-        User user = userGateway.getUser(username);
-        if (user.getPassword().equals(password)) {
-            return tokenGenerator.generateToken();
-        }
-        return null;
+    public UserGateway getUserGateway() {
+        return userGateway;
     }
 
+    @Override
+    public TokenGenerator getTokenGenerator() {
+        return tokenGenerator;
+    }
 }
